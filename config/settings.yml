@@ -1,0 +1,3 @@
+plugins:
+  optimized_move_posts_notice_enabled:
+    default: true
