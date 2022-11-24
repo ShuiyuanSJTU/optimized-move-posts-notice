@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# name: optimized_move_posts_notice
+# name: optimized move posts notice
 # about:
-# version: 0.1.0
+# version: 0.1.1
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
