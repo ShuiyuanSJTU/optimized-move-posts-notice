@@ -2,9 +2,9 @@
 
 # name: optimized_move_posts_notice
 # about:
-# version: 0.0.1
-# authors: 
-# url: 
+# version: 0.0.2
+# authors: pangbo
+# url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
 # transpile_js: true
 
@@ -35,7 +35,7 @@ after_initialize do
         destination_topic.add_moderator_post(
           user, message,
           post_type: post_type,
-          action_code: "split_topic",
+          action_code: "optimized_move_posts",
         )
     end
   end
