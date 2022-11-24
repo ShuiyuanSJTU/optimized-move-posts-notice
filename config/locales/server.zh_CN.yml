@@ -2,4 +2,4 @@ zh_CN:
   site_settings:
     optimized_move_posts_notice_enabled: "启用增强移动帖子提醒"
   optimized_move_posts_notice:
-    moderator_post_destination: "以下 %{count} 个帖子从话题 %{topic_link} 拆分而来"
+    moderator_post_destination: "以下 %{count} 个帖子从话题 %{topic_link} 移动而来"
