@@ -1,0 +1,5 @@
+en:
+  site_settings:
+    optimized_move_posts_notice_enabled: "Enable optimized move posts notice"
+  optimized_move_posts_notice:
+    moderator_post_destination: "The following %{count} posts were moved from topic %{topic_link}"

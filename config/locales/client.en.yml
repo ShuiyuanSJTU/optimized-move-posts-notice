@@ -1,0 +1,4 @@
+en:
+  js:
+    action_codes:
+      optimized_move_posts: "moves post(s) to this topic %{when}"

@@ -2,7 +2,7 @@
 
 # name: optimized_move_posts_notice
 # about:
-# version: 0.0.2
+# version: 0.1.0
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
