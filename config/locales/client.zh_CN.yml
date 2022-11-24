@@ -1,4 +1,4 @@
 zh_CN:
   js:
     action_codes:
-      optimized_move_posts: "%{when}将其他帖子移动到此话题"
+      optimized_move_posts: "%{when}将帖子移动到此话题"
