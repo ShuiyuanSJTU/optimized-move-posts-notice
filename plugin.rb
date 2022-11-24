@@ -17,7 +17,7 @@ after_initialize do
     def move_posts_to(topic)
         Guardian.new(user).ensure_can_see! topic
         @destination_topic = topic
-        create_moderator_post_in_destination_topic
+        create_moderator_post_in_destination_topic unless destination_topic.posts_count == 0
         super
     
     end
