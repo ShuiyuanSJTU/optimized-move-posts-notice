@@ -19,7 +19,6 @@ after_initialize do
         @destination_topic = topic
         create_moderator_post_in_destination_topic unless destination_topic.posts_count == 0
         super
-    
     end
 
     def create_moderator_post_in_destination_topic
@@ -27,16 +26,22 @@ after_initialize do
           I18n.t(
             "optimized_move_posts_notice.moderator_post_destination",
             count: posts.length,
-            topic_link: "[#{original_topic.title}](#{original_topic.relative_url})"
+            # topic_link: "[#{original_topic.title}](#{original_topic.relative_url})"
+            topic_link: "#{original_topic.title}"
           )
         end
     
         post_type = @move_to_pm ? Post.types[:whisper] : Post.types[:small_action]
-        destination_topic.add_moderator_post(
+        @moderator_post_in_destination_topic = destination_topic.add_moderator_post(
           user, message,
           post_type: post_type,
           action_code: "optimized_move_posts",
         )
+    end
+
+    def close_topic_and_schedule_deletion
+      @original_topic.update_status('visible', false, @user)
+      super
     end
   end
 
