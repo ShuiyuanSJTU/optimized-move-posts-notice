@@ -2,7 +2,7 @@
 
 # name: optimized move posts notice
 # about:
-# version: 0.1.3
+# version: 0.1.4
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
@@ -25,7 +25,6 @@ after_initialize do
         message = I18n.with_locale(SiteSetting.default_locale) do
           I18n.t(
             "optimized_move_posts_notice.moderator_post_destination",
-            count: posts.length,
             # topic_link: "[#{original_topic.title}](#{original_topic.relative_url})"
             topic_link: "#{original_topic.title}"
           )
