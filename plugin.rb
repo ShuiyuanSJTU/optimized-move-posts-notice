@@ -2,7 +2,7 @@
 
 # name: optimized move posts notice
 # about:
-# version: 0.1.1
+# version: 0.1.3
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
@@ -33,7 +33,8 @@ after_initialize do
     
         post_type = @move_to_pm ? Post.types[:whisper] : Post.types[:small_action]
         @moderator_post_in_destination_topic = destination_topic.add_moderator_post(
-          user, message,
+          Discourse.system_user, 
+          message,
           post_type: post_type,
           action_code: "optimized_move_posts",
         )
@@ -43,6 +44,20 @@ after_initialize do
       @original_topic.update_status('visible', false, @user)
       super
     end
+
+    def close_topic_and_schedule_deletion
+      @original_topic.update_status('closed', true, @user)
+  
+      days_to_deleting = SiteSetting.delete_merged_stub_topics_after_days
+      if days_to_deleting > 0
+        @original_topic.set_or_create_timer(
+          TopicTimer.types[:delete],
+          days_to_deleting * 24,
+          by_user: Discourse.system_user
+        )
+      end
+    end
+
   end
 
   class ::PostMover
