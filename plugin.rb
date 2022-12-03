@@ -2,7 +2,7 @@
 
 # name: optimized move posts notice
 # about:
-# version: 0.1.4
+# version: 0.1.5
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
@@ -40,12 +40,8 @@ after_initialize do
     end
 
     def close_topic_and_schedule_deletion
-      @original_topic.update_status('visible', false, @user)
-      super
-    end
-
-    def close_topic_and_schedule_deletion
       @original_topic.update_status('closed', true, @user)
+      @original_topic.update_status('visible', false, @user)
   
       days_to_deleting = SiteSetting.delete_merged_stub_topics_after_days
       if days_to_deleting > 0
