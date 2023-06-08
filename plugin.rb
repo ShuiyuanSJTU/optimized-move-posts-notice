@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# name: optimized move posts notice
+# name: optimized-move-posts-notice
 # about:
 # version: 0.1.6
 # authors: pangbo
