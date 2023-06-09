@@ -2,7 +2,7 @@
 
 # name: optimized-move-posts-notice
 # about:
-# version: 0.1.6
+# version: 0.1.7
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
@@ -77,9 +77,9 @@ after_initialize do
       )
     end
 
-    def move_each_post
+    def move_each_post_sequential
       max_post_number = destination_topic.max_post_number + 1
-  
+
       @post_creator = nil
       @move_map = {}
       @reply_count = {}
@@ -93,7 +93,7 @@ after_initialize do
   
       # change: add an array to store new posts
       @new_posts = posts.collect do |post|
-        metadata = movement_metadata(post)
+        metadata = movement_metadata(post, new_post_number: @move_map[post.post_number])
         new_post = post.is_first_post? ? create_first_post(post) : move(post)
   
         store_movement(metadata, new_post)
@@ -103,17 +103,6 @@ after_initialize do
         end
         new_post
       end
-  
-      move_incoming_emails
-      move_notifications
-      update_reply_counts
-      update_quotes
-      move_first_post_replies
-      delete_post_replies
-      delete_invalid_post_timings
-      copy_first_post_timings
-      move_post_timings
-      copy_topic_users
     end
   end
 
