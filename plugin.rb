@@ -2,7 +2,7 @@
 
 # name: optimized-move-posts-notice
 # about:
-# version: 0.1.7
+# version: 0.1.8
 # authors: pangbo
 # url: https://github.com/ShuiyuanSJTU/optimized-move-posts-notice
 # required_version: 2.7.0
@@ -17,7 +17,7 @@ after_initialize do
     def move_posts_to(topic)
         Guardian.new(user).ensure_can_see! topic
         @destination_topic = topic
-        create_moderator_post_in_destination_topic unless destination_topic.posts_count == 0
+        create_moderator_post_in_destination_topic unless destination_topic.posts_count == 0 || @chronological_order
         super
     end
 
@@ -55,17 +55,26 @@ after_initialize do
     end
     
     def create_moderator_post_in_original_topic
+      if @chronological_order
+        return super
+      end
+      
       move_type_str = PostMover.move_types[@move_type].to_s
       move_type_str.sub!("topic", "message") if @move_to_pm
   
-      # change: use @new_posts
+      # change: use @new_posts for sequential move
       message = I18n.with_locale(SiteSetting.default_locale) do
         I18n.t(
           "move_posts.#{move_type_str}_moderator_post",
           count: posts.length,
-          topic_link: @new_posts.first.is_first_post? ?
-            "[#{destination_topic.title}](#{destination_topic.relative_url})" :
-            "[#{destination_topic.title}](#{@new_posts.first.url})"
+          topic_link: 
+            (
+              if @new_posts.first.is_first_post?
+                "[#{destination_topic.title}](#{destination_topic.relative_url})"
+              else
+                "[#{destination_topic.title}](#{@new_posts.first.url})"
+              end
+            ),
         )
       end
       post_type = @move_to_pm ? Post.types[:whisper] : Post.types[:small_action]
